@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Users;
+use App\Models\Category;
+use App\Enums\TransactionType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transactions extends Model
 {
@@ -21,4 +24,21 @@ class Transactions extends Model
         'D.O.T',
         'type_of_transaction'
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'type_of_transaction' => \App\Enums\TransactionType::class
+    ];
+
+    public function user():  BelongsTo {
+        return $this->belongsTo(Users::class);
+    }
+
+    public function category():  BelongsTo {
+        return $this->belongsTo(Category::class);
+    }
 }

@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use App\Models\Transactions;
+use App\Models\RecTransactions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -17,4 +20,14 @@ class Category extends Model
         'name'
     
     ];
+
+    public function  transactions(): HasMany {
+        
+        return $this->hasMany(Transactions::class);
+    }
+
+    public function  recTransactions(): HasMany {
+        
+        return $this->hasMany(RecTransactions::class);
+    }
 }

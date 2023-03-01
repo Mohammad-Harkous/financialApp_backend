@@ -3,10 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Goal;
+use App\Models\Transactions;
+use App\Models\RecTransactions;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -42,4 +45,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function  transactions(): HasMany {
+        
+        return $this->hasMany(Transactions::class);
+    }
+
+    public function  goal(): HasMany {
+        
+        return $this->hasMany(Goal::class);
+    }
+
+
+    public function  recTransactions(): HasMany {
+        
+        return $this->hasMany(RecTransactions::class);
+    }
 }
