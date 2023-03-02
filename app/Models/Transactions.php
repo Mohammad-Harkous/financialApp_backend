@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Transactions extends Model
 {
     use HasFactory;
-      /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -34,11 +34,13 @@ class Transactions extends Model
         'type_of_transaction' => \App\Enums\TransactionType::class
     ];
 
-    public function user():  BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(Users::class);
     }
 
-    public function category():  BelongsTo {
+    public function category(): BelongsTo
+    {
         return $this->belongsTo(Category::class);
     }
 }
