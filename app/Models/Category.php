@@ -21,13 +21,14 @@ class Category extends Model
     
     ];
 
-    public function  transactions(): HasMany {
+//     public function  transactions(): HasMany {
         
-        return $this->hasMany(Transactions::class);
-    }
+//         return $this->hasMany(Transactions::class);
+//     }
 
-    public function  recTransactions(): HasMany {
+//     public function  recTransactions(): HasMany {
         
-        return $this->hasMany(RecTransactions::class);
-    }
+//         return $this->hasMany(RecTransactions::class);
+//     }
+// }
 }

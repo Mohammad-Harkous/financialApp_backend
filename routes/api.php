@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GoalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +15,18 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post ('/category',[CategoryController::class,'store']);
+Route::get ('/category',[CategoryController::class,'index']);
+Route::delete ('/category/{id}',[CategoryController::class,'destroy']);
+
+
+Route::post ('/goal',[GoalController::class,'store']);
+Route::get('/goal',[GoalController::class],'index');
+Route::get('/goal',[GoalController::class],'active');
+Route::patch('/goal',[GoalController::class],'update');
+
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -16,7 +16,7 @@ class Goal extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'type',
+        'title',
         'amount',
         'start_date',
         'end_date',
@@ -32,7 +32,7 @@ class Goal extends Model
         'type' => GoalType::class
     ];
 
-    public function user():  BelongsTo {
-        return $this->belongsTo(Users::class);
-    }
+    // public function user():  BelongsTo {
+    //     return $this->belongsTo(Users::class);
+    // }
 }
