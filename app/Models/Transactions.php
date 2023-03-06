@@ -11,25 +11,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Transactions extends Model
 {
     use HasFactory;
-      /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
+
+
+
     protected $fillable = [
         'title',
         'description',
         'amount',
         'currency',
         'D.O.T',
-        'type_of_transaction'
+        'type_of_transaction',
+        'user_id',
+        'category_id'
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+  
     protected $casts = [
         'type_of_transaction' => \App\Enums\TransactionType::class
     ];
