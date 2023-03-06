@@ -16,6 +16,7 @@ class Goal extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'status',
         'title',
         'amount',
         'start_date',

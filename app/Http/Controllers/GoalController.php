@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Goal;
+use PhpParser\Node\Stmt\Return_;
 
 class GoalController extends Controller
 {
@@ -19,24 +20,40 @@ class GoalController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-'title'=>'required',
-'amount'=>'required|numeric',
-'start_date'=>'required',
-'end_date'=>'required',
+            'status' => 'required',
+            'title' => 'required',
+            'amount' => 'required|numeric',
+            'start_date' => 'required',
+            'end_date' => 'required',
         ]);
-            return Goal::create($request->all());
+        return Goal::create($request->all());
 
-        }
-    
+    }
+
 
     public function destroy($id)
     {
-        
+
         $goal = Goal::find($id);
         if ($goal) {
             $goal->delete();
-            return response()->json(['message' => 'category deleted successfully']);
+            return response()->json(['message' => 'Goal deleted successfully']);
         }
 
+    }
+
+    public function update(Request $request, $id)
+    {
+        $goal = Goal::find($id);
+        $goal->update($request->all());
+        return response()->json(['message' => 'goal updated successfully']);
+
+
+
+
+    }
+
+    public function active (){
+        return Goal::where('status','active')->get();
     }
 }

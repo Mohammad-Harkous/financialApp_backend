@@ -24,10 +24,10 @@ class CategoryController extends Controller
         }
     
 
-    public function destroy(Request $request)
+    public function destroy(Request $id)
     {
-        $name = $request->name;
-        $category = Category::find($name);
+        
+        $category = Category::find($id);
         if ($category) {
             $category->delete();
             return response()->json(['message' => 'category deleted successfully']);
