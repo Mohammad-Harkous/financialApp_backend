@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('currency');
             $table->DATETIME('D_O_T');
             $table->enum('type_of_transaction',['Income','Expense'])->default('Income');
-            $table->foreign('user_id')->references('id')->on('users_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
