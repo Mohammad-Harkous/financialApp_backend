@@ -21,9 +21,13 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 
+
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    
+    Route::get('/users', [UsersController::class, 'index']);
+    Route::get('/users/{id}', [UsersController::class, 'show']);
+    Route::patch('/users/{id}', [UsersController::class, 'update']);
+    Route::delete('/users/{id}', [UsersController::class, 'destroy']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
