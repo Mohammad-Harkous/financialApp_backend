@@ -34,6 +34,8 @@ class Transactions extends Model
         'type_of_transaction' => \App\Enums\TransactionType::class
     ];
 
+  
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(Users::class);

@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\RecTransactionsController;
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GoalController;
@@ -25,6 +26,20 @@ Route::get('/goal', [GoalController::class, 'index']);
 Route::get('/goal/active', [GoalController::class, 'active']);
 Route::patch('/goal/{id}', [GoalController::class, 'update']);
 Route::delete('/goal/{id}', [GoalController::class, 'destroy']);
+
+
+
+
+// Route::resource('recurrence',RecTransactionsController::class);
+
+Route::get ('/recurrence', [RecTransactionsController::class ,'index']);
+Route::post ('/recurrence', [RecTransactionsController::class ,'store']);
+Route::get ('/recurrence/{id}', [RecTransactionsController::class ,'show']);
+Route::patch ('/recurrence/{id}', [RecTransactionsController::class ,'update']);
+Route::delete ('/recurrence/{id}', [RecTransactionsController::class ,'destroy']);
+Route::get ('/recurrence/search/{ent}', [RecTransactionsController::class ,'search']);
+Route::delete ('/recurrence/end/{id}/{date}', [RecTransactionsController::class ,'end']);
+
 
 
 

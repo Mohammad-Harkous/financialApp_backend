@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('description');
             $table->double('amount');
             $table->string('currency');
-            $table-> DATETIME ('D_O_T');
             $table->string('type_of_transaction')->default(TransactionType::Income->value);
             $table->DATETIME('start_date');
             $table-> DATETIME('end_date')->nullable();
