@@ -98,7 +98,7 @@ class RecTransactionsController extends Controller
 
     public function search($ent){
         return 
-        RecTransactions::where('user_id','like','%'.$ent.'%')
+        RecTransactions::where('ful_name','like','%'.$ent.'%')
         ->orwhere('title','like','%'.$ent.'%')
         ->orwhere('description','like','%'.$ent.'%')
         ->orwhere('amount','like','%'.$ent.'%')
