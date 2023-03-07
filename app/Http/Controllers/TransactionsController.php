@@ -37,18 +37,22 @@ class TransactionsController extends Controller
             'currency' => 'required',
             'D_O_T' => 'required',
             'type_of_transaction' => 'required',
-            
-            
+            'category_id'=>'required'
             
         ]);
 
+        log::info($request->all());
+
+        // $trans = Transactions::create([
+        //     $request->all()
+        // ]);
+
         $trans = Transactions::create($request->all());
 
-
-        // $trans->user_id = $request->user_id;
-        // $trans->category_id = $request->category_id;
+        $trans->user_id = $request->user_id;
+        $trans->category_id = $request->category_id;
         $trans->save();
-        return $trans;
+        // return $trans;
 
         
     }

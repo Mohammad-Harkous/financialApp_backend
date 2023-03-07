@@ -12,24 +12,21 @@ class Transactions extends Model
 {
     use HasFactory;
 
-
-
-
     protected $fillable = [
         'title',
         'description',
         'amount',
         'currency',
-        'D.O.T',
+        'D_O_T',
         'type_of_transaction',
         'user_id',
         'category_id'
     ];
 
   
-    protected $casts = [
-        'type_of_transaction' => \App\Enums\TransactionType::class
-    ];
+    // protected $casts = [
+    //     'type_of_transaction' => \App\Enums\TransactionType::class
+    // ];
 
     public function user():  BelongsTo {
         return $this->belongsTo(Users::class);
