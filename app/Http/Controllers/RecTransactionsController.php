@@ -36,7 +36,7 @@ class RecTransactionsController extends Controller
             'description' => 'required',
             'amount' => 'required',
             'currency' => 'required',
-            'D_O_T' => 'required',
+           
             'type_of_transaction' => 'required',
             'start_date' => 'required',
 
@@ -98,7 +98,7 @@ class RecTransactionsController extends Controller
 
     public function search($ent){
         return 
-        RecTransactions::where('ful_name','like','%'.$ent.'%')
+        RecTransactions::where('user_id','like','%'.$ent.'%')
         ->orwhere('title','like','%'.$ent.'%')
         ->orwhere('description','like','%'.$ent.'%')
         ->orwhere('amount','like','%'.$ent.'%')

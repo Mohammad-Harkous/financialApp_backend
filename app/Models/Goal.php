@@ -21,6 +21,7 @@ class Goal extends Model
         'amount',
         'start_date',
         'end_date',
+        'user_id',
         
     ];
 
@@ -33,7 +34,7 @@ class Goal extends Model
         'type' => GoalType::class
     ];
 
-    // public function user():  BelongsTo {
-    //     return $this->belongsTo(Users::class);
-    // }
+    public function user():  BelongsTo {
+        return $this->belongsTo(Users::class);
+    }
 }
