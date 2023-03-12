@@ -20,7 +20,6 @@ class RecTransactions extends Model
        'description',
        'amount',
        'currency',
-       'D_O_T',
        'type_of_transaction',
        'start_date',
        'end_date',

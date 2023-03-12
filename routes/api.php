@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\RecTransactionsController;
+use App\Http\Controllers\TransactionsController;
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GoalController;
@@ -26,6 +27,7 @@ Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
 Route::post('/goal', [GoalController::class, 'store']);
 Route::get('/goal', [GoalController::class, 'index']);
 Route::get('/goal/active', [GoalController::class, 'active']);
+Route::patch('/goal/activate/{id}', [GoalController::class, 'activate']);
 Route::patch('/goal/{id}', [GoalController::class, 'update']);
 Route::delete('/goal/{id}', [GoalController::class, 'destroy']);
 
@@ -45,7 +47,12 @@ Route::delete ('/recurrence/end/{id}/{date}', [RecTransactionsController::class 
 
 
 
-
+Route::post ('/transaction', [TransactionsController::class ,'store']);
+Route::patch ('/transaction/{id}', [TransactionsController::class ,'update']);
+Route::get('/transaction',[TransactionsController::class,'index']);
+Route::get('/transaction/income',[TransactionsController::class,'income']);
+Route::get('/transaction/expense',[TransactionsController::class,'expense']);
+Route::get('/transaction/total',[TransactionsController::class,'totals']);
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);

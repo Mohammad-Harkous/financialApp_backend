@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('goals', function (Blueprint $table) {
             $table->id();
-            $table->string('status')->default('active');
+            $table->string('status')->default('disabled');
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->double('amount');

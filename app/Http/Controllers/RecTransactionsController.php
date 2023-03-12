@@ -36,7 +36,6 @@ class RecTransactionsController extends Controller
             'description' => 'required',
             'amount' => 'required',
             'currency' => 'required',
-           
             'type_of_transaction' => 'required',
             'start_date' => 'required',
 

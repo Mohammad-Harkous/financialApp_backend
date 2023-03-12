@@ -6,7 +6,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Goal;
-use App\Models\RecTransactions;
+use App\Models\Transactions;
+use Carbon\Carbon;
 use PhpParser\Node\Stmt\Return_;
 
 class GoalController extends Controller
@@ -48,17 +49,28 @@ class GoalController extends Controller
         return response()->json(['message' => 'goal updated successfully']);
     }
 
+    public function activate ($id){
+        $goals=Goal::where('status','active')->first();
+        $thegoal=Goal::find($id);
+        if($goals){
+            return response(['message'=>'you already have an active goal']);
+        }
+        $thegoal->update('status','active');
+        return response(['message'=>'goal activated !']);
+    }
+
     public function active()
     {
         $goal = Goal::where('status', 'active')->first();
-        $goal->user()->full_name;
-        $start = $goal->start_date;
-        $income = RecTransactions::where('start_date', '>', $start)->where('type_of_transaction', 'like', 'income')->get();
+       
+        $start =Carbon::parse($goal->start_date) ;
+        $end=Carbon::parse($goal->end_date);
+        $income = Transactions::whereBetween('D_O_T',[$start,$end] )->where('type_of_transaction', 'like', 'income')->get();
         $totalI = $income->sum('amount');
-        $expense = RecTransactions::where('start_date', '>', $start)->where('type_of_transaction', 'like', 'expense')->get();
+        $expense = Transactions::whereBetween('D_O_T',[$start,$end] )->where('type_of_transaction', 'like', 'expense')->get();
         $totalE = $expense->sum('amount');
         $total = $totalI-$totalE ;
-        $percent = $total * 100 / $goal->amount;
+        $percent = $total*100/$goal->amount;
 
         $response = [
              $goal,
@@ -67,7 +79,6 @@ class GoalController extends Controller
             'target' => $total,
             'percent' => $percent,
         ];
-
         return response($response, 202);
     }
 }

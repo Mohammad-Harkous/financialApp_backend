@@ -21,8 +21,10 @@ class Transactions extends Model
         'description',
         'amount',
         'currency',
-        'D.O.T',
-        'type_of_transaction'
+        'D_O_T',
+        'type_of_transaction',
+        'user_id',
+        'category_id',
     ];
 
     /**
