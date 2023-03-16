@@ -24,7 +24,7 @@ class Users extends Authenticatable
         'full_name',
         'email',
         'password',
-        'is_admin',
+        'is_admin'
     ];
 
     /**
@@ -44,6 +44,10 @@ class Users extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $attributes = [
+        'is_admin' => false
     ];
 
     public function  transactions(): HasMany {

@@ -19,17 +19,19 @@ use App\Http\Controllers\Api\AuthController;
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/users', [UsersController::class, 'index']);
+Route::delete('/users/{id}', [UsersController::class, 'destroy']);
 
 
 
 // Protected routes
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/users', [UsersController::class, 'index']);
-    Route::get('/users/{id}', [UsersController::class, 'show']);
-    Route::patch('/users/{id}', [UsersController::class, 'update']);
-    Route::delete('/users/{id}', [UsersController::class, 'destroy']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-});
+// Route::group(['middleware' => ['auth:sanctum']], function () {
+//     Route::get('/users', [UsersController::class, 'index']);
+//     Route::get('/users/{id}', [UsersController::class, 'show']);
+//     Route::patch('/users/{id}', [UsersController::class, 'update']);
+//     Route::delete('/users/{id}', [UsersController::class, 'destroy']);
+//     Route::post('/logout', [AuthController::class, 'logout']);
+// });
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
