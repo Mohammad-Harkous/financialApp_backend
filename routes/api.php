@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\RecTransactionsController;
 use App\Http\Controllers\TransactionsController;
-
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GoalController;
 use Illuminate\Http\Request;
@@ -52,21 +52,28 @@ Route::patch ('/transaction/{id}', [TransactionsController::class ,'update']);
 Route::get('/transaction',[TransactionsController::class,'index']);
 Route::get('/transaction/income',[TransactionsController::class,'income']);
 Route::get('/transaction/expense',[TransactionsController::class,'expense']);
-Route::get('/transaction/total',[TransactionsController::class,'totals']);
+
+
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/report/{date}',[ReportController::class,'calculate']);
 
 
-
+Route::get('/users', [UsersController::class, 'index']);
+Route::get('/users/{id}', [UsersController::class, 'show']);
+Route::patch('/users/{id}', [UsersController::class, 'update']);
+Route::delete('/users/{id}', [UsersController::class, 'destroy']);
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/users', [UsersController::class, 'index']);
-    Route::get('/users/{id}', [UsersController::class, 'show']);
-    Route::patch('/users/{id}', [UsersController::class, 'update']);
-    Route::delete('/users/{id}', [UsersController::class, 'destroy']);
+   
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/goal/active', [GoalController::class, 'active']);
+    
+    Route::get('/transaction/first',[TransactionsController::class,'five']);
+    Route::get('/transaction/total',[TransactionsController::class,'totals']);
 });
 
 

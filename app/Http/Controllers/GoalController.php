@@ -62,7 +62,9 @@ class GoalController extends Controller
     public function active()
     {
         $goal = Goal::where('status', 'active')->first();
-       
+        if(!$goal){
+            return response(['message'=>"no active goal found "]);
+        }
         $start =Carbon::parse($goal->start_date) ;
         $end=Carbon::parse($goal->end_date);
         $income = Transactions::whereBetween('D_O_T',[$start,$end] )->where('type_of_transaction', 'like', 'income')->get();
@@ -71,12 +73,18 @@ class GoalController extends Controller
         $totalE = $expense->sum('amount');
         $total = $totalI-$totalE ;
         $percent = $total*100/$goal->amount;
+        $start=$goal->start_date;
+        $end=$goal->end_date;
+
 
         $response = [
-             $goal,
-            'income' => $totalI,
-            'expense' => $totalE,
-            'target' => $total,
+             'title'=>$goal->title,
+             'start'=>substr($start,0,10),
+             'end'=>substr($end,0,10),
+             'total'=>number_format($goal->amount),
+            'income' =>number_format($totalI) ,
+            'expense' => number_format($totalE),
+            'target' => number_format($total),
             'percent' => $percent,
         ];
         return response($response, 202);

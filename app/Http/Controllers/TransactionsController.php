@@ -17,8 +17,8 @@ class TransactionsController extends Controller
             'currency' => 'required',
             'type_of_transaction' => 'required',
             'D_O_T' => 'required',
-            'user_id'=>'required',
-            'category_id'=>'required',
+            'user_id' => 'required',
+            'category_id' => 'required',
 
 
         ]);
@@ -29,9 +29,7 @@ class TransactionsController extends Controller
         $trans->user_id = $request->user_id;
         $trans->category_id = $request->category_id;
         $trans->save();
-        return response(['message'=>'trasaction created successfully']);
-
-
+        return response(['message' => 'trasaction created successfully']);
     }
 
     public function update(Request $request, string $id)
@@ -41,52 +39,60 @@ class TransactionsController extends Controller
         $recurrence->update($request->all());
         return $recurrence;
     }
-    
-    public function search($ent){
-        return 
-        Transactions::where('user_id','like','%'.$ent.'%')
-        ->orwhere('title','like','%'.$ent.'%')
-        ->orwhere('description','like','%'.$ent.'%')
-        ->orwhere('amount','like','%'.$ent.'%')
-        ->orwhere('currency','like','%'.$ent.'%')
-        ->orwhere('type_of_transaction','like','%'.$ent.'%')
-        ->orwhere('start_date','like','%'.$ent.'%')->get();
-        
-       
-        
-      
+
+    public function search($ent)
+    {
+        return
+            Transactions::where('user_id', 'like', '%' . $ent . '%')
+            ->orwhere('title', 'like', '%' . $ent . '%')
+            ->orwhere('description', 'like', '%' . $ent . '%')
+            ->orwhere('amount', 'like', '%' . $ent . '%')
+            ->orwhere('currency', 'like', '%' . $ent . '%')
+            ->orwhere('type_of_transaction', 'like', '%' . $ent . '%')
+            ->orwhere('start_date', 'like', '%' . $ent . '%')->get();
     }
 
-    public function index (){
-        $trans=Transactions::all();
+    public function index()
+    {
+        $trans = Transactions::all();
         return $trans;
     }
 
-    public function income(){
-$trasaction=Transactions::where('type_of_transaction', 'like', 'income')->get();
-return $trasaction;
-    }
-    
-    public function expense(){
-        $trasaction=Transactions::where('type_of_transaction', 'like', 'expense')->get();
+    public function income()
+    {
+        $trasaction = Transactions::where('type_of_transaction', 'like', 'income')->get();
         return $trasaction;
     }
 
-    public function totals(){
-$income=Transactions::where('type_of_transaction', 'like', 'income')->get();
-$expense=Transactions::where('type_of_transaction', 'like', 'expense')->get();
-$totalI=$income->sum('amount');
-$totalE=$expense->sum('amount');
-$total=$totalI-$totalE;
+    public function expense()
+    {
+        $trasaction = Transactions::where('type_of_transaction', 'like', 'expense')->get();
+        return $trasaction;
+    }
 
-$response = [
-   
-   'income' => $totalI,
-   'expense' => $totalE,
-   'total' => $total,
-   
-];
-return response($response, 202);
+    public function totals()
+    {
+        $income = Transactions::where('type_of_transaction', 'like', 'income')->get();
+        $expense = Transactions::where('type_of_transaction', 'like', 'expense')->get();
+        $totalI =  $income->sum('amount');
+        $totalE = $expense->sum('amount');
+        $total = $totalI - $totalE;
+
+        $response = [
+
+            'income' =>number_format($totalI) ,
+            'expense' =>number_format($totalE) ,
+            'total' =>number_format($total) ,
+
+        ];
+        return response($response, 202);
+    }
+
+
+
+    public function five(){
+      $title=  Transactions::latest()->take(10)->get();
+      
+      return $title;
     }
 }
-
