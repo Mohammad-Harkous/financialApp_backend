@@ -28,7 +28,7 @@ use App\Http\Controllers\Api\AuthController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/transaction/{date}', [TransactionsController::class, 'filter']);
+
 
 
 // Protected routes
@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/transaction', [TransactionsController::class, 'index']);
     Route::get('/transaction/income', [TransactionsController::class, 'income']);
     Route::get('/transaction/expense', [TransactionsController::class, 'expense']);
-    
+    Route::get('/transaction/{date}', [TransactionsController::class, 'filter']);
 });
 
 
