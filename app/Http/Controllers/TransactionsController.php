@@ -88,6 +88,11 @@ class TransactionsController extends Controller
         return response($response, 202);
     }
 
+    public function filter($date){
+        $trans = Transactions::where('D_O_T','like','%'."{$date}".'%' )->get();
+        return $trans;
+    }
+
 
 
     public function five(){

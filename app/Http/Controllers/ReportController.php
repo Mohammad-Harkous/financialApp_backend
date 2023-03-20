@@ -20,8 +20,8 @@ class ReportController extends Controller
     $total_all=array();
   
     $result=array();
-    $now = now();
-    $y = substr($now, 0, 4);
+   
+    
     $months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12',];
    
 for($i=0;$i<12;$i++)
