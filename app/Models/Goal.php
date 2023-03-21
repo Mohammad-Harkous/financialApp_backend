@@ -6,6 +6,8 @@ use App\Models\Users;
 use App\Enums\GoalType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Controllers\Api\AuthController;
+
 
 class Goal extends Model
 {
@@ -16,14 +18,13 @@ class Goal extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'status',
         'title',
         'amount',
         'start_date',
         'end_date',
         'user_id',
-        
     ];
+    
 
     /**
      * The attributes that should be cast.

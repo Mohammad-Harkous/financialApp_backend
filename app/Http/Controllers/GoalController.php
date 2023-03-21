@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Goal;
 use App\Models\Transactions;
@@ -21,14 +21,36 @@ class GoalController extends Controller
     //create a new category  to add it in a list
     public function store(Request $request)
     {
+        // $request->validate([
+        //     // 'status' => 'required',
+        //     'title' => 'required',
+        //     'amount' => 'required|numeric',
+        //     'start_date'=>'required|date_format:Y-m-d',
+        //     'end_date'=>'required|date_format:Y-m-d|after_or_equal:start_date',
+        // ]);
+        // return Goal::create($request->all());
+
         $request->validate([
-            'status' => 'required',
             'title' => 'required',
             'amount' => 'required|numeric',
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'start_date' => 'required|date_format:Y-m-d',
+            'end_date' => 'required|date_format:Y-m-d|after_or_equal:start_date',
         ]);
-        return Goal::create($request->all());
+    
+        $goal = new Goal([
+            'title' => $request->input('title'),
+            'amount' => $request->input('amount'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+        ]);
+    
+        if (Auth::check()) {
+            $goal->user_id = Auth::id();
+        }
+    
+        $goal->save();
+    
+        return $goal;
     }
 
 
@@ -62,7 +84,9 @@ class GoalController extends Controller
     public function active()
     {
         $goal = Goal::where('status', 'active')->first();
-       
+        if(!$goal){
+            return response(['message'=>"no active goal found "]);
+        }
         $start =Carbon::parse($goal->start_date) ;
         $end=Carbon::parse($goal->end_date);
         $income = Transactions::whereBetween('D_O_T',[$start,$end] )->where('type_of_transaction', 'like', 'income')->get();
@@ -71,12 +95,18 @@ class GoalController extends Controller
         $totalE = $expense->sum('amount');
         $total = $totalI-$totalE ;
         $percent = $total*100/$goal->amount;
+        $start=$goal->start_date;
+        $end=$goal->end_date;
+
 
         $response = [
-             $goal,
-            'income' => $totalI,
-            'expense' => $totalE,
-            'target' => $total,
+             'title'=>$goal->title,
+             'start'=>substr($start,0,10),
+             'end'=>substr($end,0,10),
+             'total'=>number_format($goal->amount),
+            'income' =>number_format($totalI) ,
+            'expense' => number_format($totalE),
+            'target' => number_format($total),
             'percent' => $percent,
         ];
         return response($response, 202);
