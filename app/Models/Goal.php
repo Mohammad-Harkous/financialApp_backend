@@ -16,10 +16,12 @@ class Goal extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'type',
+        'status',
+        'title',
         'amount',
         'start_date',
         'end_date',
+        'user_id',
         
     ];
 

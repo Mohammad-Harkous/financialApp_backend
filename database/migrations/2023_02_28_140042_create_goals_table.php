@@ -14,8 +14,9 @@ return new class extends Migration
     {
         Schema::create('goals', function (Blueprint $table) {
             $table->id();
+            $table->string('status')->default('disabled');
             $table->unsignedBigInteger('user_id');
-            $table->enum('type',['Yearly','Monthly','Weekly'])->default('Yearly');
+            $table->string('title');
             $table->double('amount');
             $table->DATETIME('start_date');
             $table->DATETIME('end_date');

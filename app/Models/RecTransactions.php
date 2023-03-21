@@ -20,10 +20,11 @@ class RecTransactions extends Model
        'description',
        'amount',
        'currency',
-       'D.O.T',
        'type_of_transaction',
        'start_date',
        'end_date',
+       'user_id',
+       'category_id',
        
    ];
 
@@ -36,8 +37,9 @@ class RecTransactions extends Model
         'type_of_transaction' => TransactionType::class
     ];
     
+
     public function user():  BelongsTo {
-        return $this->belongsTo(Users::class);
+        return $this->belongsTo(User::class);
     }
 
     public function category():  BelongsTo {
